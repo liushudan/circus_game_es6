@@ -6,7 +6,7 @@ export default class extends Phaser.State {
   init () {}
 
   preload () {
-    this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+    this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
     this.game.load.image('background', './assets/images/stage01.png')
 
     this.game.load.spritesheet('clown', './assets/images/circus-charlie-sheet.gif',16,24,10)
@@ -161,9 +161,31 @@ export default class extends Phaser.State {
     this.game.load.atlas('clown', './assets/images/circus-charlie-sheet.gif', null, botData)
   }
 
+  createMeters () {
+    var graphics = this.add.graphics(0, 0)
+    var x
+    for(var i=10;i>=0;i--) {
+      x = (10-i)*780
+      
+      this.add.text(x+15, 690, (i*10)+' m', {
+        font : '46px "arcadeclasic"',
+        fill : '#fff',
+        align : 'center'
+      })
+
+      graphics.lineStyle(2, 0x000000, 1)
+      graphics.beginFill(0x000000, 1)
+      graphics.drawRect(x, 690, 130, 50)
+      graphics.lineStyle(5, 0xd42700, 1)
+      graphics.drawRect(x+5, 695, 120, 40)
+    }
+  }
+
   create () {
     this.ground = game.add.sprite(80/2-40,428/2,'background')
+
     this.createPlayer()
+    this.createMeters()
   }
 
   createPlayer () {
