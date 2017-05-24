@@ -4,9 +4,13 @@ import Mushroom from '../sprites/Mushroom'
 
 export default class extends Phaser.State {
   init () {}
-  preload () {}
+  preload () {
+    this.game.load.image('background', './assets/images/stage01.png');
+  }
 
-  create () {}
+  create () {
+    this.ground = game.add.sprite(80/2-40,428/2,'background');
+  }
 
   render () {
     if (__DEV__) {
