@@ -11,6 +11,8 @@ export default class extends Phaser.State {
 
     this.game.load.spritesheet('clown', './assets/images/circus-charlie-sheet.gif',16,24,10)
 
+    this.load.audio('level_1', ['assets/audio/level1-4.mp3']);
+
     var botData={'frames': [
       {
       'filename': 'clown0000',
@@ -166,7 +168,7 @@ export default class extends Phaser.State {
     var x
     for(var i=10;i>=0;i--) {
       x = (10-i)*780
-      
+
       this.add.text(x+15, 690, (i*10)+' m', {
         font : '46px "arcadeclasic"',
         fill : '#fff',
@@ -182,6 +184,12 @@ export default class extends Phaser.State {
   }
 
   create () {
+    this.music = this.add.audio('level_1')
+    this.music.play()
+
+    this.cursors = this.game.input.keyboard.createCursorKeys()
+    //this.world.setBounds(0,0,1024 * 8, 200)
+
     this.ground = game.add.sprite(80/2-40,428/2,'background')
 
     this.createPlayer()
@@ -209,7 +217,21 @@ export default class extends Phaser.State {
   }
 
   update () {
-    this.ready = true
+    if (this.cursors.right.isDown){
+      this.clown.isRunning = true
+      this.lion.body.velocity.x = 200
+      this.lion.animations.play('runLion', 10, true)
+    } else if (this.cursors.left.isDown) {
+      this.clown.isRunning = true
+      this.lion.body.velocity.x = -100
+      this.lion.animations.play('runLion', 6, true)
+    } else {
+      this.lion.body.velocity.x=0
+
+      this.clown.isRunning=false
+      this.lion.animations.stop(0)
+      this.lion.animations.play('idleLion')
+    }
   }
 
   render () {
