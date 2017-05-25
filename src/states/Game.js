@@ -13,30 +13,38 @@ export default class extends Phaser.State {
 
     this.load.audio('level_1', ['assets/audio/level1-4.mp3']);
 
-    var botData={'frames': [
+    var botData = {'frames': [
       {
-      'filename': 'clown0000',
-      'frame': {'x':164,'y':5,'w':16,'h':24},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-      'sourceSize': {'w':16,'h':24}
+        'filename': 'clown0000',
+        'frame': {'x':164,'y':5,'w':16,'h':24},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
+        'sourceSize': {'w':16,'h':24}
       },
       {
-      'filename': 'clown0001',
-      'frame': {'x':185,'y':5,'w':16,'h':24},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-      'sourceSize': {'w':16,'h':24}
+        'filename': 'clown0001',
+        'frame': {'x':185,'y':5,'w':16,'h':24},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
+        'sourceSize': {'w':16,'h':24}
       },
       {
-      'filename': 'clown0002',
-      'frame': {'x':205,'y':5,'w':16,'h':24},
+        'filename': 'clown0002',
+        'frame': {'x':205,'y':5,'w':16,'h':24},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
+        'sourceSize': {'w':16,'h':24}
+      },
+      {
+      'filename': 'clownStandJump0000',
+      'frame': {'x':182,'y':58,'w':15,'h':24},
       'rotated': false,
       'trimmed': true,
       'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-      'sourceSize': {'w':16,'h':24}
+      'sourceSize': {'w':15,'h':24}
       },
       {
       'filename': 'clownJump0003',
@@ -54,14 +62,7 @@ export default class extends Phaser.State {
       'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
       'sourceSize': {'w':15,'h':24}
       },
-      {
-      'filename': 'clownStandJump0000',
-      'frame': {'x':182,'y':58,'w':15,'h':24},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-      'sourceSize': {'w':15,'h':24}
-      },
+
       {
       'filename': 'clownburn0000',
       'frame': {'x':164,'y':32,'w':15,'h':24},
@@ -70,93 +71,94 @@ export default class extends Phaser.State {
       'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
       'sourceSize': {'w':16,'h':24}
       },
-      {
-      'filename': 'lion0002',
-      'frame': {'x':164,'y':87,'w':33,'h':16},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-      'sourceSize': {'w':33,'h':16}
-      },
-      {
-      'filename': 'lion0001',
-      'frame': {'x':200,'y':87,'w':33,'h':16},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-      'sourceSize': {'w':33,'h':16}
-      },
-      {
-      'filename': 'lion0000',
-      'frame': {'x':234,'y':87,'w':33,'h':16},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-      'sourceSize': {'w':33,'h':16}
-      },
-      {
-      'filename': 'lionburn0000',
-      'frame': {'x':272,'y':87,'w':33,'h':16},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-      'sourceSize': {'w':33,'h':16}
-      },
-      {
-      'filename': 'firepot0000',
-      'frame': {'x':221,'y':194,'w':24,'h':31},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
-      'sourceSize': {'w':24,'h':31}
-      },
-      {
-      'filename': 'firepot0001',
-      'frame': {'x':195,'y':194,'w':24,'h':31},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
-      'sourceSize': {'w':24,'h':31}
-      },
-      {
-      'filename': 'firecirclel0000',
-      'frame': {'x':136,'y':145,'w':12,'h':80},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-      'sourceSize': {'w':12,'h':80}
 
+      {
+        'filename': 'lion0000',
+        'frame': {'x':234,'y':87,'w':33,'h':16},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
+        'sourceSize': {'w':33,'h':16}
       },
       {
-      'filename': 'firecirclel0001',
-      'frame': {'x':165,'y':145,'w':12,'h':80},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-      'sourceSize': {'w':12,'h':80}
+        'filename': 'lion0001',
+        'frame': {'x':200,'y':87,'w':33,'h':16},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
+        'sourceSize': {'w':33,'h':16}
       },
       {
-      'filename': 'firecircler0000',
-      'frame': {'x':148,'y':145,'w':12,'h':80},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-      'sourceSize': {'w':12,'h':80}
+        'filename': 'lion0002',
+        'frame': {'x':164,'y':87,'w':33,'h':16},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
+        'sourceSize': {'w':33,'h':16}
       },
       {
-      'filename': 'firecircler0001',
-      'frame': {'x':177,'y':145,'w':12,'h':80},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-      'sourceSize': {'w':12,'h':80}
+        'filename': 'lionburn0000',
+        'frame': {'x':272,'y':87,'w':33,'h':16},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
+        'sourceSize': {'w':33,'h':16}
       },
-      {'filename': 'endLevel1',
-      'frame': {'x':129,'y':243,'w':37,'h':22},
-      'rotated': false,
-      'trimmed': true,
-      'spriteSourceSize': {'x':0,'y':0,'w':37,'h':22},
-      'sourceSize': {'w':37,'h':18}
+      {
+        'filename': 'firepot0000',
+        'frame': {'x':221,'y':194,'w':24,'h':31},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
+        'sourceSize': {'w':24,'h':31}
+      },
+      {
+        'filename': 'firepot0001',
+        'frame': {'x':195,'y':194,'w':24,'h':31},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
+        'sourceSize': {'w':24,'h':31}
+      },
+      {
+        'filename': 'firecirclel0000',
+        'frame': {'x':136,'y':145,'w':12,'h':80},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
+        'sourceSize': {'w':12,'h':80}
+      },
+      {
+        'filename': 'firecirclel0001',
+        'frame': {'x':165,'y':145,'w':12,'h':80},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
+        'sourceSize': {'w':12,'h':80}
+      },
+      {
+        'filename': 'firecircler0000',
+        'frame': {'x':148,'y':145,'w':12,'h':80},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
+        'sourceSize': {'w':12,'h':80}
+      },
+      {
+        'filename': 'firecircler0001',
+        'frame': {'x':177,'y':145,'w':12,'h':80},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
+        'sourceSize': {'w':12,'h':80}
+      },
+      {
+        'filename': 'endLevel1',
+        'frame': {'x':129,'y':243,'w':37,'h':22},
+        'rotated': false,
+        'trimmed': true,
+        'spriteSourceSize': {'x':0,'y':0,'w':37,'h':22},
+        'sourceSize': {'w':37,'h':18}
       }
     ]}
 
@@ -183,19 +185,6 @@ export default class extends Phaser.State {
     }
   }
 
-  create () {
-    this.music = this.add.audio('level_1')
-    this.music.play()
-
-    this.cursors = this.game.input.keyboard.createCursorKeys()
-    //this.world.setBounds(0,0,1024 * 8, 200)
-
-    this.ground = game.add.sprite(80/2-40,428/2,'background')
-
-    this.createPlayer()
-    this.createMeters()
-  }
-
   createPlayer () {
     this.lion = this.game.add.sprite(85, 630, 'clown','lion0000')
     this.game.physics.enable(this.lion, Phaser.Physics.ARCADE)
@@ -216,19 +205,56 @@ export default class extends Phaser.State {
     this.lion.body.collideWorldBounds=true
   }
 
+  create () {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
+
+    //this.music = this.add.audio('level_1')
+    //this.music.play()
+
+    this.cursor = this.game.input.keyboard.createCursorKeys()
+
+    this.ground = game.add.sprite(80/2-40,428/2,'background')
+
+    this.createMeters()
+    this.createPlayer()
+  }
+
   update () {
-    if (this.cursors.right.isDown){
+    this.lion.body.gravity.y = 700
+
+    if (this.lion.body.touching.down) {
+      this.clown.frameName='clownStandJump0000'
+      this.lion.frameName='lion0002'
+    } else {
+      this.clown.frameName='clownStand0000'
+    }
+
+    if (this.cursor.up.isDown && !this.lion.body.touching.down) {
+      this.lion.body.velocity.y = -480
+    }
+
+    if (this.lion.body.touching.down) {
+      return
+    }
+
+    this.inputs()
+  }
+
+  inputs () {
+    if (this.cursor.right.isDown) {
       this.clown.isRunning = true
+
       this.lion.body.velocity.x = 200
       this.lion.animations.play('runLion', 10, true)
-    } else if (this.cursors.left.isDown) {
+    } else if (this.cursor.left.isDown) {
       this.clown.isRunning = true
+
       this.lion.body.velocity.x = -100
       this.lion.animations.play('runLion', 6, true)
     } else {
-      this.lion.body.velocity.x=0
+      this.lion.body.velocity.x = 0
 
-      this.clown.isRunning=false
+      this.clown.isRunning = false
       this.lion.animations.stop(0)
       this.lion.animations.play('idleLion')
     }
