@@ -186,7 +186,7 @@ export default class extends Phaser.State {
   }
 
   createPlayer () {
-    this.lion = this.game.add.sprite(85, 630, 'clown','lion0000')
+    this.lion = this.game.add.sprite(65, 5, 'clown','lion0000')
     this.game.physics.enable(this.lion, Phaser.Physics.ARCADE)
 
     this.lion.body.setSize(90, 50, -5, 0)
@@ -195,8 +195,8 @@ export default class extends Phaser.State {
     this.game.physics.enable(this.clown,Phaser.Physics.ARCADE,true)
     this.lion.addChild(this.clown)
 
-    this.lion.scale.x =3
-    this.lion.scale.y =3
+    this.lion.scale.x = 3
+    this.lion.scale.y = 3
 
     this.lion.animations.add('runLion', Phaser.Animation.generateFrameNames('lion', 0, 2, '', 4), 3 /*fps */, true)
     this.lion.animations.add('idleLion', Phaser.Animation.generateFrameNames('lion', 0, 0, '', 4), 1 /*fps */, true)
@@ -207,20 +207,30 @@ export default class extends Phaser.State {
 
   create () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
+    this.game.stage.disableVisibilityChange = true
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.maxWidth = 1024
+    this.game.scale.maxHeight = 768
+    this.game.scale.pageAlignHorizontally = true
+    this.game.scale.pageAlignVertically = true
 
     //this.music = this.add.audio('level_1')
     //this.music.play()
 
     this.cursor = this.game.input.keyboard.createCursorKeys()
+    this.world.setBounds(0,0,1024 * 8, 200)
+    this.ground = game.add.tileSprite(0, 215, 1024 * 8, 552, 'background')
 
-    this.ground = game.add.sprite(80/2-40,428/2,'background')
+    //this.ground = game.add.sprite(80/2-40,428/2,'background')
 
     this.createMeters()
     this.createPlayer()
+
   }
 
   update () {
     this.lion.body.gravity.y = 700
+    this.game.camera.x = this.lion.x-100
 
     if (this.lion.body.touching.down) {
       this.clown.frameName='clownStandJump0000'
@@ -230,7 +240,7 @@ export default class extends Phaser.State {
     }
 
     if (this.cursor.up.isDown && !this.lion.body.touching.down) {
-      this.lion.body.velocity.y = -480
+      this.lion.body.velocity.y = -380
     }
 
     if (this.lion.body.touching.down) {
