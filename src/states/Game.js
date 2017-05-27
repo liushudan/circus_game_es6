@@ -174,7 +174,7 @@ export default class extends Phaser.State {
       this.add.text(x+15, 690, (i*10)+' m', {
         font : '46px "arcadeclasic"',
         fill : '#fff',
-        align : 'center'
+        align : 'right'
       })
 
       graphics.lineStyle(2, 0x000000, 1)
@@ -218,10 +218,9 @@ export default class extends Phaser.State {
     //this.music.play()
 
     this.cursor = this.game.input.keyboard.createCursorKeys()
-    this.world.setBounds(0,0,1024 * 8, 200)
-    this.ground = game.add.tileSprite(0, 215, 1024 * 8, 552, 'background')
 
-    //this.ground = game.add.sprite(80/2-40,428/2,'background')
+    this.world.setBounds(0, 0, 1024*8, 775)
+    this.background=this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
     this.createMeters()
     this.createPlayer()
