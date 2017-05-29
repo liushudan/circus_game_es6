@@ -13,7 +13,7 @@ export default class extends Phaser.State {
 
     this.load.audio('level_1', ['assets/audio/level1-4.mp3']);
 
-    var botData = {'frames': [
+    let botData = {'frames': [
       {
         'filename': 'clown0000',
         'frame': {'x':164,'y':5,'w':16,'h':24},
@@ -166,9 +166,9 @@ export default class extends Phaser.State {
   }
 
   createMeters () {
-    var graphics = this.add.graphics(0, 0)
-    var x
-    for(var i=10;i>=0;i--) {
+    let graphics = this.add.graphics(0, 0)
+    let x
+    for(let i=10;i>=0;i--) {
       x = (10-i)*780
 
       this.add.text(x+15, 690, (i*10)+' m', {
@@ -201,7 +201,7 @@ export default class extends Phaser.State {
     this.lion.animations.add('runLion', Phaser.Animation.generateFrameNames('lion', 0, 2, '', 4), 3 /*fps */, true)
     this.lion.animations.add('idleLion', Phaser.Animation.generateFrameNames('lion', 0, 0, '', 4), 1 /*fps */, true)
 
-    this.clown.isRunning=false
+    this.clown.isRunning = false
     this.lion.body.collideWorldBounds=true
   }
 
@@ -210,21 +210,64 @@ export default class extends Phaser.State {
     let w = this.world.bounds.width-800
 
     for (let i = 1200; i < w; i+=800) {
-      let firepot=this.add.sprite(i, 585, 'clown','firepot0000')
+      let firepot = this.add.sprite(i, 585, 'clown','firepot0000')
       this.physics.enable(firepot, Phaser.Physics.ARCADE)
       firepot.body.setSize(38, 48, -14, -15)
 
-      firepot.body.x=i
-      firepot.body.y=600
+      firepot.body.x = i
+      firepot.body.y = 600
       firepot.body.immovable = true
-      firepot.scale.x=3
-      firepot.scale.y=3
+      firepot.scale.x = 3
+      firepot.scale.y = 3
 
       this.obstacles.add(firepot)
     }
 
-    this.obstacles.callAll('animations.add', 'animations', 'burnPot', Phaser.Animation.generateFrameNames('firepot', 0, 1, '', 4), 10, true)
-    this.obstacles.callAll('animations.play', 'animations', 'burnPot')
+    this.obstacles.callAll('animations.add','animations','burnPot', Phaser.Animation.generateFrameNames('firepot', 0, 1, '', 4), 10, true)
+    this.obstacles.callAll('animations.play','animations','burnPot')
+  }
+
+  createFireCirclesRight () {
+    let burnCircleRigth = Phaser.Animation.generateFrameNames('firecircler', 0, 1, '', 4)
+    this.firecirclesRight = this.add.group()
+
+    this.firecirclesLeft.forEach(function(e) {
+      let x = e.body.x+30
+      let fireCircleRight=this.game.add.sprite(x, 335, 'clown','firecircler0000')
+      this.physics.enable(fireCircleRight, Phaser.Physics.ARCADE)
+      fireCircleRight.animations.add('burnCircleRigth', burnCircleRigth, 5, true)
+
+      this.firecirclesRight.add(fireCircleRight)
+
+    }, this)
+
+    this.firecirclesRight.setAll('scale.x',3)
+    this.firecirclesRight.setAll('scale.y',3)
+    this.firecirclesRight.setAll('body.velocity.x',-70)
+    this.firecirclesRight.callAll('animations.play', 'animations', 'burnCircleRigth')
+  }
+
+  createFireCirclesLeft () {
+    let burnCircleLeft  = Phaser.Animation.generateFrameNames('firecirclel', 0, 1, '', 4)
+    this.firecirclesLeft = this.add.group()
+    for (let i = 800; i < this.world.bounds.width; i+=800) {
+      if(i%2) {
+        i-=300 + Math.floor(Math.random()*100) + 1
+      }
+      i++
+
+      let fireCircleLeft = this.add.sprite(i, 335, 'clown','firecirclel0000')
+      this.game.physics.enable(fireCircleLeft, Phaser.Physics.ARCADE)
+      fireCircleLeft.animations.add('burnCircleLeft', burnCircleLeft, 5, true)
+
+      this.firecirclesLeft.add(fireCircleLeft)
+    }
+
+    this.firecirclesLeft.setAll('scale.x',3)
+    this.firecirclesLeft.setAll('scale.y',3)
+    this.firecirclesLeft.setAll('body.velocity.x',-70)
+
+    this.firecirclesLeft.callAll('animations.play', 'animations', 'burnCircleLeft')
   }
 
   create () {
@@ -245,7 +288,9 @@ export default class extends Phaser.State {
     this.background=this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
     this.createMeters()
+    this.createFireCirclesLeft()
     this.createPlayer()
+    this.createFireCirclesRight()
     this.createObstacles()
 
   }
