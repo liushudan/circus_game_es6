@@ -227,26 +227,6 @@ export default class extends Phaser.State {
     this.obstacles.callAll('animations.play','animations','burnPot')
   }
 
-  createFireCirclesRight () {
-    let burnCircleRigth = Phaser.Animation.generateFrameNames('firecircler', 0, 1, '', 4)
-    this.firecirclesRight = this.add.group()
-
-    this.firecirclesLeft.forEach(function(e) {
-      let x = e.body.x+30
-      let fireCircleRight=this.game.add.sprite(x, 335, 'clown','firecircler0000')
-      this.physics.enable(fireCircleRight, Phaser.Physics.ARCADE)
-      fireCircleRight.animations.add('burnCircleRigth', burnCircleRigth, 5, true)
-
-      this.firecirclesRight.add(fireCircleRight)
-
-    }, this)
-
-    this.firecirclesRight.setAll('scale.x',3)
-    this.firecirclesRight.setAll('scale.y',3)
-    this.firecirclesRight.setAll('body.velocity.x',-70)
-    this.firecirclesRight.callAll('animations.play', 'animations', 'burnCircleRigth')
-  }
-
   createFireCirclesLeft () {
     let burnCircleLeft  = Phaser.Animation.generateFrameNames('firecirclel', 0, 1, '', 4)
     this.firecirclesLeft = this.add.group()
@@ -268,6 +248,39 @@ export default class extends Phaser.State {
     this.firecirclesLeft.setAll('body.velocity.x',-70)
 
     this.firecirclesLeft.callAll('animations.play', 'animations', 'burnCircleLeft')
+  }
+
+  createFireCirclesRight () {
+    let burnCircleRigth = Phaser.Animation.generateFrameNames('firecircler', 0, 1, '', 4)
+    this.firecirclesRight = this.add.group()
+
+    this.firecirclesLeft.forEach(function(e) {
+      let x = e.body.x+30
+      let fireCircleRight=this.game.add.sprite(x, 335, 'clown','firecircler0000')
+      this.physics.enable(fireCircleRight, Phaser.Physics.ARCADE)
+      fireCircleRight.animations.add('burnCircleRigth', burnCircleRigth, 5, true)
+
+      this.firecirclesRight.add(fireCircleRight)
+
+    }, this)
+
+    this.firecirclesRight.setAll('scale.x',3)
+    this.firecirclesRight.setAll('scale.y',3)
+    this.firecirclesRight.setAll('body.velocity.x',-70)
+    this.firecirclesRight.callAll('animations.play', 'animations', 'burnCircleRigth')
+  }
+
+  createFireCirclesCollision () {
+      this.fireCollisionGroup = this.add.group()
+      this.firecirclesLeft.forEach(function(e) {
+        let x = e.body.x+30
+
+        let touchFire = this.game.add.sprite(x-10, 554)
+        this.physics.enable(touchFire, Phaser.Physics.ARCADE)
+        touchFire.body.setSize(25, 150)
+        this.fireCollisionGroup.add(touchFire)
+      }, this)
+      this.fireCollisionGroup.setAll('body.velocity.x',-70)
   }
 
   create () {
@@ -295,6 +308,7 @@ export default class extends Phaser.State {
     this.createPlayer()
     this.createFireCirclesRight()
     this.createObstacles()
+    this.createFireCirclesCollision()
 
     this.floor = this.game.add.sprite(0, 678)
     this.endStage = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
@@ -312,25 +326,43 @@ export default class extends Phaser.State {
     this.floor.body.width = this.game.world.width
   }
 
+  triggerGameover () {
+    let that = this
+    // this.music.stop()
+    // this.failureSound=this.add.audio('failure');
+    // this.failureSound.play();
+
+    setTimeout(function() {
+        that.lion.animations.stop()
+        that.clown.frameName = 'clownburn0000'
+        that.lion.frameName = 'lionburn0000'
+
+        that.lion.body.gravity.y = 0
+        that.lion.body.speed = 0
+        that.lion.body.velocity.y = 0
+        that.lion.body.velocity.x = 0
+
+        that.firecirclesRight.setAll('body.velocity.x',0)
+        that.firecirclesLeft.setAll('body.velocity.x',0)
+    }, 1)
+
+    setTimeout(function() {
+        that.game.state.start('Game')
+        //that.failureSound.stop()
+    }, 3100)
+
+    this.gameover = true
+  }
+
   update () {
     if (this.gameover) {
-      this.clown.frameName = 'clownburn0000'
-      this.lion.frameName = 'lionburn0000'
-      this.lion.body.gravity.y = 0
-      this.lion.body.velocity.y = 0
-      this.lion.body.velocity.x = 0
       return
     }
-    this.lion.body.gravity.y = 200
 
+    this.game.physics.arcade.collide(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
+    this.game.physics.arcade.collide(this.lion, this.obstacles, this.triggerGameover, null, this)
     this.game.physics.arcade.collide(this.endStage, this.lion)
     this.game.physics.arcade.collide(this.floor, this.lion)
-    
-    this.game.physics.arcade.overlap(this.obstacles, this.lion, function() {
-      this.lion.animations.stop(0)
-      this.gameover = true
-      console.log('game over')
-    }, null, this)
 
     this.lion.body.gravity.y = 700
     this.game.camera.x = this.lion.x-100
