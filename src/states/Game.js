@@ -186,8 +186,8 @@ export default class extends Phaser.State {
   }
 
   createPlayer () {
-    this.lion = this.game.add.sprite(65, 5, 'clown','lion0000')
-    this.game.physics.enable(this.lion, Phaser.Physics.ARCADE)
+    this.lion = this.add.sprite(85, 630, 'clown','lion0000')
+    this.physics.enable(this.lion, Phaser.Physics.ARCADE)
 
     this.lion.body.setSize(90, 50, -5, 0)
 
@@ -203,6 +203,28 @@ export default class extends Phaser.State {
 
     this.clown.isRunning=false
     this.lion.body.collideWorldBounds=true
+  }
+
+  createObstacles () {
+    this.obstacles = this.add.group()
+    let w = this.world.bounds.width-800
+
+    for (let i = 1200; i < w; i+=800) {
+      let firepot=this.add.sprite(i, 585, 'clown','firepot0000')
+      this.physics.enable(firepot, Phaser.Physics.ARCADE)
+      firepot.body.setSize(38, 48, -14, -15)
+
+      firepot.body.x=i
+      firepot.body.y=600
+      firepot.body.immovable = true
+      firepot.scale.x=3
+      firepot.scale.y=3
+
+      this.obstacles.add(firepot)
+    }
+
+    this.obstacles.callAll('animations.add', 'animations', 'burnPot', Phaser.Animation.generateFrameNames('firepot', 0, 1, '', 4), 10, true)
+    this.obstacles.callAll('animations.play', 'animations', 'burnPot')
   }
 
   create () {
@@ -224,6 +246,7 @@ export default class extends Phaser.State {
 
     this.createMeters()
     this.createPlayer()
+    this.createObstacles()
 
   }
 
