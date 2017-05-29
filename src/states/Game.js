@@ -3,7 +3,9 @@ import Phaser from 'phaser'
 import Mushroom from '../sprites/Mushroom'
 
 export default class extends Phaser.State {
-  init () {}
+  init () {
+    this.stage.backgroundColor = '#000'
+  }
 
   preload () {
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
@@ -168,7 +170,7 @@ export default class extends Phaser.State {
   createMeters () {
     let graphics = this.add.graphics(0, 0)
     let x
-    for(let i=10;i>=0;i--) {
+    for(let i=10; i>=0; i--) {
       x = (10-i)*780
 
       this.add.text(x+15, 690, (i*10)+' m', {
@@ -189,9 +191,9 @@ export default class extends Phaser.State {
     this.lion = this.add.sprite(85, 630, 'clown','lion0000')
     this.physics.enable(this.lion, Phaser.Physics.ARCADE)
 
-    this.lion.body.setSize(90, 50, -5, 0)
+    this.lion.body.setSize(0, 50, 0, 0)
 
-    this.clown = this.game.add.sprite(7, -22, 'clown','clownStand0000')
+    this.clown = this.game.add.sprite(2, -22, 'clown','clownStand0000')
     this.game.physics.enable(this.clown,Phaser.Physics.ARCADE,true)
     this.lion.addChild(this.clown)
 
@@ -212,7 +214,7 @@ export default class extends Phaser.State {
     for (let i = 1200; i < w; i+=800) {
       let firepot = this.add.sprite(i, 585, 'clown','firepot0000')
       this.physics.enable(firepot, Phaser.Physics.ARCADE)
-      firepot.body.setSize(38, 48, -14, -15)
+      firepot.body.setSize(0, 48, -14, -15)
 
       firepot.body.x = i
       firepot.body.y = 600
@@ -277,7 +279,7 @@ export default class extends Phaser.State {
 
         let touchFire = this.game.add.sprite(x-10, 554)
         this.physics.enable(touchFire, Phaser.Physics.ARCADE)
-        touchFire.body.setSize(25, 150)
+        touchFire.body.setSize(0, 150)
         this.fireCollisionGroup.add(touchFire)
       }, this)
       this.fireCollisionGroup.setAll('body.velocity.x',-70)
@@ -402,7 +404,7 @@ export default class extends Phaser.State {
       this.clown.frameName='clownStand0000'
     }
 
-    if (this.cursor.up.isDown && !this.lion.body.touching.down) {
+    if (this.cursor.up.isDown) {
       this.lion.body.velocity.y = -380
     }
 
@@ -439,7 +441,7 @@ export default class extends Phaser.State {
 
       this.game.debug.body(this.lion)
       this.game.debug.body(this.clown)
-      //this.game.debug.body(this.recicleFireCirclesWall)
+      this.game.debug.body(this.recicleFireCirclesWall)
 
       this.game.debug.body(this.floor)
       this.obstacles.forEach(function (e) {
