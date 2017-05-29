@@ -271,8 +271,11 @@ export default class extends Phaser.State {
   }
 
   create () {
+    this.gameover=false
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.stage.disableVisibilityChange = true
+
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
     this.game.scale.maxWidth = 1024
     this.game.scale.maxHeight = 768
@@ -293,9 +296,42 @@ export default class extends Phaser.State {
     this.createFireCirclesRight()
     this.createObstacles()
 
+    this.floor = this.game.add.sprite(0, 678)
+    this.endStage = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
+
+    this.physics.enable(this.floor, Phaser.Physics.ARCADE)
+    this.physics.enable(this.endStage, Phaser.Physics.ARCADE)
+
+    this.endStage.scale.x = 3
+    this.endStage.scale.y = 3
+    this.endStage.body.immovable = true
+    this.endStage.body.collideWorldBounds = true
+
+    this.floor.body.immovable = true
+    this.floor.body.collideWorldBounds = true
+    this.floor.body.width = this.game.world.width
   }
 
   update () {
+    if (this.gameover) {
+      this.clown.frameName = 'clownburn0000'
+      this.lion.frameName = 'lionburn0000'
+      this.lion.body.gravity.y = 0
+      this.lion.body.velocity.y = 0
+      this.lion.body.velocity.x = 0
+      return
+    }
+    this.lion.body.gravity.y = 200
+
+    this.game.physics.arcade.collide(this.endStage, this.lion)
+    this.game.physics.arcade.collide(this.floor, this.lion)
+    
+    this.game.physics.arcade.overlap(this.obstacles, this.lion, function() {
+      this.lion.animations.stop(0)
+      this.gameover = true
+      console.log('game over')
+    }, null, this)
+
     this.lion.body.gravity.y = 700
     this.game.camera.x = this.lion.x-100
 
