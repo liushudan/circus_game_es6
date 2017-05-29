@@ -324,6 +324,12 @@ export default class extends Phaser.State {
     this.floor.body.immovable = true
     this.floor.body.collideWorldBounds = true
     this.floor.body.width = this.game.world.width
+
+    this.recicleFireCirclesWall = this.game.add.sprite(-12, 600)
+    this.physics.enable(this.recicleFireCirclesWall, Phaser.Physics.ARCADE)
+    this.recicleFireCirclesWall.body.immovable = true
+    this.recicleFireCirclesWall.body.height = 500
+    this.recicleFireCirclesWall.body.width = 2
   }
 
   triggerGameover () {
@@ -354,9 +360,31 @@ export default class extends Phaser.State {
     this.gameover = true
   }
 
+  recicleFireCircle () {
+    let fLeft = this.firecirclesLeft.getFirstExists()
+    let fRight = this.firecirclesRight.getFirstExists()
+    let fObstable = this.fireCollisionGroup.getFirstExists()
+
+    fLeft.body.x = this.world.width
+    fRight.body.x = this.world.width+30
+    fObstable.body.x = this.world.width+20
+    fObstable.body.velocity.x = fLeft.body.velocity.x
+
+    this.firecirclesLeft.remove(fLeft)
+    this.firecirclesLeft.add(fLeft)
+    this.firecirclesRight.remove(fRight)
+    this.firecirclesRight.add(fRight)
+    this.fireCollisionGroup.remove(fObstable)
+    this.fireCollisionGroup.add(fObstable)
+  }
+
   update () {
     if (this.gameover) {
       return
+    }
+
+    if (this.lion.body.x < (this.world.width-1600)) {
+      this.game.physics.arcade.collide(this.recicleFireCirclesWall,this.fireCollisionGroup, this._recicleFireCircle,null,this);
     }
 
     this.game.physics.arcade.collide(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
@@ -408,8 +436,10 @@ export default class extends Phaser.State {
   render () {
     if (__DEV__) {
       this.game.debug.bodyInfo(this.lion, 32, 320)
+
       this.game.debug.body(this.lion)
       this.game.debug.body(this.clown)
+      //this.game.debug.body(this.recicleFireCirclesWall)
 
       this.game.debug.body(this.floor)
       this.obstacles.forEach(function (e) {
