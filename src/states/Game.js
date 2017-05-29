@@ -8,7 +8,6 @@ export default class extends Phaser.State {
   }
 
   preload () {
-    this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
     this.game.load.image('background', './assets/images/stage01.png')
 
     this.game.load.spritesheet('clown', './assets/images/circus-charlie-sheet.gif',16,24,10)
@@ -286,7 +285,7 @@ export default class extends Phaser.State {
   }
 
   create () {
-    this.gameover=false
+    //this.gameover=false
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.stage.disableVisibilityChange = true
@@ -303,14 +302,14 @@ export default class extends Phaser.State {
     this.cursor = this.game.input.keyboard.createCursorKeys()
 
     this.world.setBounds(0, 0, 1024*8, 775)
-    this.background=this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
+    this.background = this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
     this.createMeters()
-    this.createFireCirclesLeft()
+    //this.createFireCirclesLeft()
     this.createPlayer()
-    this.createFireCirclesRight()
+    //this.createFireCirclesRight()
     this.createObstacles()
-    this.createFireCirclesCollision()
+    //this.createFireCirclesCollision()
 
     this.floor = this.game.add.sprite(0, 678)
     this.endStage = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
@@ -327,11 +326,11 @@ export default class extends Phaser.State {
     this.floor.body.collideWorldBounds = true
     this.floor.body.width = this.game.world.width
 
-    this.recicleFireCirclesWall = this.game.add.sprite(-12, 600)
-    this.physics.enable(this.recicleFireCirclesWall, Phaser.Physics.ARCADE)
-    this.recicleFireCirclesWall.body.immovable = true
-    this.recicleFireCirclesWall.body.height = 500
-    this.recicleFireCirclesWall.body.width = 2
+    // this.recicleFireCirclesWall = this.game.add.sprite(-12, 600)
+    // this.physics.enable(this.recicleFireCirclesWall, Phaser.Physics.ARCADE)
+    // this.recicleFireCirclesWall.body.immovable = true
+    // this.recicleFireCirclesWall.body.height = 500
+    // this.recicleFireCirclesWall.body.width = 2
   }
 
   triggerGameover () {
@@ -381,18 +380,18 @@ export default class extends Phaser.State {
   }
 
   update () {
-    if (this.gameover) {
-      return
-    }
+    // if (this.gameover) {
+    //   return
+    // }
 
-    if (this.lion.body.x < (this.world.width-1600)) {
-      this.game.physics.arcade.collide(this.recicleFireCirclesWall,this.fireCollisionGroup, this._recicleFireCircle,null,this);
-    }
-
-    this.game.physics.arcade.collide(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
-    this.game.physics.arcade.collide(this.lion, this.obstacles, this.triggerGameover, null, this)
-    this.game.physics.arcade.collide(this.endStage, this.lion)
-    this.game.physics.arcade.collide(this.floor, this.lion)
+    // if (this.lion.body.x < (this.world.width-800)) {
+    //   this.game.physics.arcade.collide(this.recicleFireCirclesWall,this.fireCollisionGroup, this._recicleFireCircle,null,this);
+    // }
+    //
+    // this.game.physics.arcade.collide(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
+    // this.game.physics.arcade.collide(this.lion, this.obstacles, this.triggerGameover, null, this)
+    this.game.physics.arcade.overlap(this.endStage, this.lion)
+    this.game.physics.arcade.overlap(this.floor, this.lion)
 
     this.lion.body.gravity.y = 700
     this.game.camera.x = this.lion.x-100
@@ -404,8 +403,8 @@ export default class extends Phaser.State {
       this.clown.frameName='clownStand0000'
     }
 
-    if (this.cursor.up.isDown) {
-      this.lion.body.velocity.y = -380
+    if (this.cursor.up.isDown && !this.lion.body.touching.down) {
+      this.lion.body.velocity.y = -480
     }
 
     if (this.lion.body.touching.down) {
@@ -441,16 +440,16 @@ export default class extends Phaser.State {
 
       this.game.debug.body(this.lion)
       this.game.debug.body(this.clown)
-      this.game.debug.body(this.recicleFireCirclesWall)
+      //this.game.debug.body(this.recicleFireCirclesWall)
 
       this.game.debug.body(this.floor)
       this.obstacles.forEach(function (e) {
         this.game.debug.body(e)
       }, this)
 
-      this.fireCollisionGroup.forEach(function (e) {
-        this.game.debug.body(e)
-      }, this)
+      // this.fireCollisionGroup.forEach(function (e) {
+      //   this.game.debug.body(e)
+      // }, this)
     }
   }
 }
