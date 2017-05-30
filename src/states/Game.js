@@ -286,7 +286,7 @@ export default class extends Phaser.State {
   }
 
   create () {
-    this.gameover = false
+    this.dead = false
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
     this.game.stage.disableVisibilityChange = true
@@ -334,7 +334,7 @@ export default class extends Phaser.State {
     this.recicleFireCirclesWall.body.width = 2
   }
 
-  triggerGameover () {
+  triggerDead () {
     let that = this
     // this.music.stop()
     // this.failureSound=this.add.audio('failure')
@@ -359,7 +359,7 @@ export default class extends Phaser.State {
         //that.failureSound.stop()
     }, 3100)
 
-    this.gameover = true
+    this.dead = true
   }
 
   recicleFireCircle () {
@@ -381,7 +381,7 @@ export default class extends Phaser.State {
   }
 
   update () {
-    if (this.gameover) {
+    if (this.dead) {
       return
     }
 
@@ -389,8 +389,8 @@ export default class extends Phaser.State {
       this.game.physics.arcade.overlap(this.recicleFireCirclesWall, this.fireCollisionGroup, this.recicleFireCircle, null, this)
     }
 
-    this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
-    this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerGameover, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerDead, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerDead, null, this)
     this.game.physics.arcade.collide(this.endLevel, this.lion)
     this.game.physics.arcade.collide(this.floor, this.lion)
 
