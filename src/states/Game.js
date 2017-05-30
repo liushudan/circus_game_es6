@@ -305,6 +305,9 @@ export default class extends Phaser.State {
     this.world.setBounds(0, -20, 1024*8, 725)
     this.background = this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
+    this.levelText = this.game.add.text(880, 10, 'STAGE 01', { fontSize: '20px', fill: '#FFF' })
+    this.levelText.fixedToCamera = true
+
     this.createMeters()
     this.createFireCirclesLeft()
     this.createPlayer()
@@ -332,6 +335,7 @@ export default class extends Phaser.State {
     this.recicleFireCirclesWall.body.immovable = true
     this.recicleFireCirclesWall.body.height = 500
     this.recicleFireCirclesWall.body.width = 2
+
   }
 
   triggerDead () {
