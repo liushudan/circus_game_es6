@@ -6,9 +6,7 @@ export default class extends Phaser.State {
 
   preload () {
     this.game.load.image('background', './assets/images/stage01.png')
-
-    this.game.load.spritesheet('clown', './assets/images/circus-charlie-sheet.gif',16,24,10)
-
+    this.game.load.image('heart', './assets/images/heart.png')
     this.load.audio('level_1', ['assets/audio/level1-4.mp3'])
 
     let botData = {
@@ -288,14 +286,14 @@ export default class extends Phaser.State {
   create () {
     this.dead = false
 
-    this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.stage.disableVisibilityChange = true
-
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-    this.game.scale.maxWidth = 1024
-    this.game.scale.maxHeight = 768
-    this.game.scale.pageAlignHorizontally = true
-    this.game.scale.pageAlignVertically = true
+    // this.game.physics.startSystem(Phaser.Physics.ARCADE)
+    // this.game.stage.disableVisibilityChange = true
+    //
+    // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    // this.game.scale.maxWidth = 1024
+    // this.game.scale.maxHeight = 768
+    // this.game.scale.pageAlignHorizontally = true
+    // this.game.scale.pageAlignVertically = true
 
     //this.music = this.add.audio('level_1')
     //this.music.play()
@@ -314,6 +312,8 @@ export default class extends Phaser.State {
     this.createFireCirclesRight()
     this.createObstacles()
     this.createFireCirclesCollision()
+
+    this.playerLives()
 
     this.floor = this.game.add.sprite(10, 678)
     this.endLevel = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
@@ -335,7 +335,6 @@ export default class extends Phaser.State {
     this.recicleFireCirclesWall.body.immovable = true
     this.recicleFireCirclesWall.body.height = 500
     this.recicleFireCirclesWall.body.width = 2
-
   }
 
   triggerDead () {
@@ -356,6 +355,7 @@ export default class extends Phaser.State {
 
         that.firecirclesRight.setAll('body.velocity.x',0)
         that.firecirclesLeft.setAll('body.velocity.x',0)
+        this.glives.removeChildAt(this.LIVES)
     }, 1)
 
     setTimeout(function() {
@@ -363,7 +363,21 @@ export default class extends Phaser.State {
         //that.failureSound.stop()
     }, 3100)
 
+
+
     this.dead = true
+  }
+
+  playerLives() {
+    this.dead = false
+    this.glives = game.add.group()
+    this.livesText = this.game.add.text(850, 140, 'LIVES: ', { fontSize: '20px ', fill: '#FFF' })
+    this.livesText.fixedToCamera = true
+    for (var i = 0; i < 3; i++) {
+      this.forlives = this.glives.create(90 + (30 * i), 55, 'heart')
+      this.forlives.anchor.setTo(0.5, 0.5)
+      this.forlives.fixedToCamera = true
+    }
   }
 
   recicleFireCircle () {

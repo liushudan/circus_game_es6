@@ -2,12 +2,12 @@ export default class extends Phaser.State {
   init () {
     this.music = null
     this.playButton = null
-    this.backgroundColor = '#000'
   }
 
   preload () {
-    this.load.image('logo', 'assets/images/logo.png')
-    this.load.image('starsmenu', 'assets/images/stars.png')
+    
+
+    game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml')
   }
 
   create () {
@@ -19,13 +19,10 @@ export default class extends Phaser.State {
     logo.scale.x = 1.6
     logo.scale.y = 1.5
 
-    let textstyle = {
-      font : '50px "arcadeclasic"',
-      fill : '#fff',
-      align : 'center'
-    }
-
-    this.startText = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 120, 'Press  ENTER  to\n start playing', textstyle)
+    this.startText = game.add.bitmapText(this.game.width / 2 - 310, this.game.height / 2 + 120, 'carrier_command','Press  ENTER  to\n\n start playing',34)
+    this.startText.inputEnabled = true
+    this.startText.input.enableDrag()
+    //this.startText = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 120, 'Press  ENTER  to\n start playing', textstyle)
 
     this.enterPressed = false
   }

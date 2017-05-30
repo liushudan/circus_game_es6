@@ -3,33 +3,25 @@ import WebFont from 'webfontloader'
 
 export default class extends Phaser.State {
   init () {
-    this.stage.backgroundColor = '#EDEEC9'
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
   }
 
   preload () {
-    WebFont.load({
-      google: {
-        families: ['Bangers']
-      },
-      active: this.fontsLoaded
-    })
+    this.load.image('logo', 'assets/images/logo.png')
+    this.load.image('starsmenu', 'assets/images/stars.png')
 
-    let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
-    text.anchor.setTo(0.5, 0.5)
-
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
+    this.game.load.spritesheet('clown', './assets/images/circus-charlie-sheet.gif',16,24,10)
   }
 
-  render () {
-    if (this.fontsReady) {
-      this.state.start('Splash')
-    }
-  }
+  create () {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
 
-  fontsLoaded () {
-    this.fontsReady = true
+    this.game.stage.disableVisibilityChange = true
+
+    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    this.game.scale.maxWidth = 1024
+    this.game.scale.maxHeight = 768
+    this.game.scale.pageAlignHorizontally = true
+    this.game.scale.pageAlignVertically = true
+    this.game.state.start('MainMenu')
   }
 }
