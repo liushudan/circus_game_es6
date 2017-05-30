@@ -1,6 +1,5 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
-import Mushroom from '../sprites/Mushroom'
 
 export default class extends Phaser.State {
   init () {
@@ -172,10 +171,10 @@ export default class extends Phaser.State {
     for(let i=10; i>=0; i--) {
       x = (10-i)*780
 
-      this.add.text(x+15, 690, (i*10)+' m', {
+      this.add.text(x+15, 694, (i*10)+' m', {
         font : '46px "arcadeclasic"',
         fill : '#fff',
-        align : 'right'
+        align : 'left'
       })
 
       graphics.lineStyle(2, 0x000000, 1)
@@ -190,10 +189,12 @@ export default class extends Phaser.State {
     this.lion = this.add.sprite(85, 630, 'clown','lion0000')
     this.physics.enable(this.lion, Phaser.Physics.ARCADE)
 
-    this.lion.body.setSize(0, 50, 0, 0)
+    this.lion.body.setSize(30, 16, 2, 0)
 
-    this.clown = this.game.add.sprite(2, -22, 'clown','clownStand0000')
-    this.game.physics.enable(this.clown,Phaser.Physics.ARCADE,true)
+    this.clown = this.game.add.sprite(7, -22, 'clown','clownStand0000')
+    this.game.physics.enable(this.clown, Phaser.Physics.ARCADE, true)
+    this.clown.body.setSize(0, 0, 0, 0)
+
     this.lion.addChild(this.clown)
 
     this.lion.scale.x = 3
@@ -203,7 +204,7 @@ export default class extends Phaser.State {
     this.lion.animations.add('idleLion', Phaser.Animation.generateFrameNames('lion', 0, 0, '', 4), 1 /*fps */, true)
 
     this.clown.isRunning = false
-    this.lion.body.collideWorldBounds=true
+    this.lion.body.collideWorldBounds = true
   }
 
   createObstacles () {
@@ -213,7 +214,7 @@ export default class extends Phaser.State {
     for (let i = 1200; i < w; i+=800) {
       let firepot = this.add.sprite(i, 585, 'clown','firepot0000')
       this.physics.enable(firepot, Phaser.Physics.ARCADE)
-      firepot.body.setSize(0, 48, -14, -15)
+      firepot.body.setSize(12, 16, 6, 0)
 
       firepot.body.x = i
       firepot.body.y = 600
@@ -278,30 +279,30 @@ export default class extends Phaser.State {
 
         let touchFire = this.game.add.sprite(x-10, 554)
         this.physics.enable(touchFire, Phaser.Physics.ARCADE)
-        touchFire.body.setSize(0, 150)
+        touchFire.body.setSize(25, 150)
         this.fireCollisionGroup.add(touchFire)
       }, this)
       this.fireCollisionGroup.setAll('body.velocity.x',-70)
   }
 
   create () {
-    //this.gameover=false
+    this.gameover=false
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    this.game.stage.disableVisibilityChange = true
-
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-    this.game.scale.maxWidth = 1024
-    this.game.scale.maxHeight = 768
-    this.game.scale.pageAlignHorizontally = true
-    this.game.scale.pageAlignVertically = true
+    // this.game.stage.disableVisibilityChange = true
+    //
+    // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+    // this.game.scale.maxWidth = 1024
+    // this.game.scale.maxHeight = 768
+    // this.game.scale.pageAlignHorizontally = true
+    // this.game.scale.pageAlignVertically = true
 
     //this.music = this.add.audio('level_1')
     //this.music.play()
 
-    this.cursor = this.game.input.keyboard.createCursorKeys()
+    this.cursors = this.game.input.keyboard.createCursorKeys()
 
-    this.world.setBounds(0, 0, 1024*8, 775)
+    this.world.setBounds(0, -20, 1024*8, 725)
     this.background = this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
     this.createMeters()
@@ -311,7 +312,7 @@ export default class extends Phaser.State {
     this.createObstacles()
     //this.createFireCirclesCollision()
 
-    this.floor = this.game.add.sprite(0, 678)
+    this.floor = this.game.add.sprite(10, 678)
     this.endStage = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
 
     this.physics.enable(this.floor, Phaser.Physics.ARCADE)
@@ -326,11 +327,11 @@ export default class extends Phaser.State {
     this.floor.body.collideWorldBounds = true
     this.floor.body.width = this.game.world.width
 
-    // this.recicleFireCirclesWall = this.game.add.sprite(-12, 600)
-    // this.physics.enable(this.recicleFireCirclesWall, Phaser.Physics.ARCADE)
-    // this.recicleFireCirclesWall.body.immovable = true
-    // this.recicleFireCirclesWall.body.height = 500
-    // this.recicleFireCirclesWall.body.width = 2
+    this.recicleFireCirclesWall = this.game.add.sprite(-12, 600)
+    this.physics.enable(this.recicleFireCirclesWall, Phaser.Physics.ARCADE)
+    this.recicleFireCirclesWall.body.immovable = true
+    this.recicleFireCirclesWall.body.height = 500
+    this.recicleFireCirclesWall.body.width = 2
   }
 
   triggerGameover () {
@@ -380,34 +381,37 @@ export default class extends Phaser.State {
   }
 
   update () {
-    // if (this.gameover) {
-    //   return
-    // }
+    if (this.gameover) {
+      return
+    }
 
-    // if (this.lion.body.x < (this.world.width-800)) {
-    //   this.game.physics.arcade.collide(this.recicleFireCirclesWall,this.fireCollisionGroup, this._recicleFireCircle,null,this);
-    // }
-    //
-    // this.game.physics.arcade.collide(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
-    // this.game.physics.arcade.collide(this.lion, this.obstacles, this.triggerGameover, null, this)
-    this.game.physics.arcade.overlap(this.endStage, this.lion)
-    this.game.physics.arcade.overlap(this.floor, this.lion)
+    if (this.lion.body.x < (this.world.width-1600)) {
+      this.game.physics.arcade.overlap(this.recicleFireCirclesWall,this.fireCollisionGroup, this._recicleFireCircle,null,this);
+    }
+
+    this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerGameover, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerGameover, null, this)
+    this.game.physics.arcade.collide(this.endStage, this.lion)
+    this.game.physics.arcade.collide(this.floor, this.lion)
 
     this.lion.body.gravity.y = 700
+
+    var isJumping = !this.lion.body.touching.down
+
     this.game.camera.x = this.lion.x-100
 
-    if (this.lion.body.touching.down) {
-      this.clown.frameName='clownStandJump0000'
-      this.lion.frameName='lion0002'
+    if (isJumping) {
+      this.clown.frameName = 'clownStandJump0000'
+      this.lion.frameName = 'lion0002'
     } else {
-      this.clown.frameName='clownStand0000'
+      this.clown.frameName = 'clownStand0000'
     }
 
-    if (this.cursor.up.isDown && !this.lion.body.touching.down) {
-      this.lion.body.velocity.y = -480
+    if (this.cursors.up.isDown && !isJumping) {
+      this.lion.body.velocity.y = -480;
     }
 
-    if (this.lion.body.touching.down) {
+    if(isJumping) {
       return
     }
 
@@ -415,12 +419,12 @@ export default class extends Phaser.State {
   }
 
   inputs () {
-    if (this.cursor.right.isDown) {
+    if (this.cursors.right.isDown) {
       this.clown.isRunning = true
 
       this.lion.body.velocity.x = 200
       this.lion.animations.play('runLion', 10, true)
-    } else if (this.cursor.left.isDown) {
+    } else if (this.cursors.left.isDown) {
       this.clown.isRunning = true
 
       this.lion.body.velocity.x = -100
