@@ -7,160 +7,9 @@ export default class extends Phaser.State {
   preload () {
     this.game.load.image('background', './assets/images/stage01.png')
     this.game.load.image('heart', './assets/images/heart.png')
+
     this.load.audio('level_1', ['assets/audio/level1-4.mp3'])
-
-    let botData = {
-      'frames':
-      [
-        {
-          'filename': 'clown0000',
-          'frame': {'x':164,'y':5,'w':16,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':16,'h':24}
-        },
-        {
-          'filename': 'clown0001',
-          'frame': {'x':185,'y':5,'w':16,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':16,'h':24}
-        },
-        {
-          'filename': 'clown0002',
-          'frame': {'x':205,'y':5,'w':16,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':16,'h':24}
-        },
-        {
-          'filename': 'clownStandJump0000',
-          'frame': {'x':182,'y':58,'w':15,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':15,'h':24}
-        },
-        {
-          'filename': 'clownJump0003',
-          'frame': {'x':226,'y':5,'w':16,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':16,'h':24}
-        },
-        {
-          'filename': 'clownStand0000',
-          'frame': {'x':164,'y':58,'w':15,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':15,'h':24}
-        },
-
-        {
-          'filename': 'clownburn0000',
-          'frame': {'x':164,'y':32,'w':15,'h':24},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
-          'sourceSize': {'w':16,'h':24}
-        },
-
-        {
-          'filename': 'lion0000',
-          'frame': {'x':234,'y':87,'w':33,'h':16},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-          'sourceSize': {'w':33,'h':16}
-        },
-        {
-          'filename': 'lion0001',
-          'frame': {'x':200,'y':87,'w':33,'h':16},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-          'sourceSize': {'w':33,'h':16}
-        },
-        {
-          'filename': 'lion0002',
-          'frame': {'x':164,'y':87,'w':33,'h':16},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-          'sourceSize': {'w':33,'h':16}
-        },
-        {
-          'filename': 'lionburn0000',
-          'frame': {'x':272,'y':87,'w':33,'h':16},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':33,'h':16},
-          'sourceSize': {'w':33,'h':16}
-        },
-        {
-          'filename': 'firepot0000',
-          'frame': {'x':221,'y':194,'w':24,'h':31},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
-          'sourceSize': {'w':24,'h':31}
-        },
-        {
-          'filename': 'firepot0001',
-          'frame': {'x':195,'y':194,'w':24,'h':31},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':24,'h':31},
-          'sourceSize': {'w':24,'h':31}
-        },
-        {
-          'filename': 'firecirclel0000',
-          'frame': {'x':136,'y':145,'w':12,'h':80},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-          'sourceSize': {'w':12,'h':80}
-        },
-        {
-          'filename': 'firecirclel0001',
-          'frame': {'x':165,'y':145,'w':12,'h':80},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-          'sourceSize': {'w':12,'h':80}
-        },
-        {
-          'filename': 'firecircler0000',
-          'frame': {'x':148,'y':145,'w':12,'h':80},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-          'sourceSize': {'w':12,'h':80}
-        },
-        {
-          'filename': 'firecircler0001',
-          'frame': {'x':177,'y':145,'w':12,'h':80},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':12,'h':80},
-          'sourceSize': {'w':12,'h':80}
-        },
-        {
-          'filename': 'endLevel1',
-          'frame': {'x':129,'y':243,'w':37,'h':22},
-          'rotated': false,
-          'trimmed': true,
-          'spriteSourceSize': {'x':0,'y':0,'w':37,'h':22},
-          'sourceSize': {'w':37,'h':18}
-        }
-    ]}
-
-    this.game.load.atlas('clown', './assets/images/circus-charlie-sheet.gif', null, botData)
+    this.load.audio('failure', ['assets/audio/failure.mp3'])
   }
 
   createMeters () {
@@ -286,17 +135,8 @@ export default class extends Phaser.State {
   create () {
     this.dead = false
 
-    // this.game.physics.startSystem(Phaser.Physics.ARCADE)
-    // this.game.stage.disableVisibilityChange = true
-    //
-    // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-    // this.game.scale.maxWidth = 1024
-    // this.game.scale.maxHeight = 768
-    // this.game.scale.pageAlignHorizontally = true
-    // this.game.scale.pageAlignVertically = true
-
-    //this.music = this.add.audio('level_1')
-    //this.music.play()
+    this.music = this.add.audio('level_1')
+    this.music.play()
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
@@ -306,6 +146,8 @@ export default class extends Phaser.State {
     this.levelText = this.game.add.text(880, 10, 'STAGE 01', { fontSize: '20px', fill: '#FFF' })
     this.levelText.fixedToCamera = true
 
+    this.LIVES = 3
+
     this.createMeters()
     this.createFireCirclesLeft()
     this.createPlayer()
@@ -313,7 +155,7 @@ export default class extends Phaser.State {
     this.createObstacles()
     this.createFireCirclesCollision()
 
-    this.playerLives()
+    this.tiggerLives()
 
     this.floor = this.game.add.sprite(10, 678)
     this.endLevel = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
@@ -337,11 +179,11 @@ export default class extends Phaser.State {
     this.recicleFireCirclesWall.body.width = 2
   }
 
-  triggerDead () {
+  triggerIsDead () {
     let that = this
-    // this.music.stop()
-    // this.failureSound=this.add.audio('failure')
-    // this.failureSound.play()
+    this.music.stop()
+    this.failureSound = this.add.audio('failure')
+    this.failureSound.play()
 
     setTimeout(function() {
         that.lion.animations.stop()
@@ -355,28 +197,32 @@ export default class extends Phaser.State {
 
         that.firecirclesRight.setAll('body.velocity.x',0)
         that.firecirclesLeft.setAll('body.velocity.x',0)
-        this.glives.removeChildAt(this.LIVES)
     }, 1)
 
     setTimeout(function() {
         that.game.state.start('Game')
-        //that.failureSound.stop()
+        that.failureSound.stop()
     }, 3100)
 
-
-
     this.dead = true
+
+    this.LIVES--
+    this.glives.removeChildAt(this.LIVES)
   }
 
-  playerLives() {
+  tiggerLives() {
     this.dead = false
+
     this.glives = game.add.group()
-    this.livesText = this.game.add.text(850, 140, 'LIVES: ', { fontSize: '20px ', fill: '#FFF' })
+    this.glives.fixedToCamera = true
+
+    this.livesText = this.game.add.text(16, 10, 'LIVES: ', { fontSize: '20px ', fill: '#FFF' })
     this.livesText.fixedToCamera = true
+
     for (var i = 0; i < 3; i++) {
       this.forlives = this.glives.create(90 + (30 * i), 55, 'heart')
       this.forlives.anchor.setTo(0.5, 0.5)
-      this.forlives.fixedToCamera = true
+      //this.forlives.fixedToCamera = true
     }
   }
 
@@ -399,21 +245,23 @@ export default class extends Phaser.State {
   }
 
   update () {
-    if (this.dead) {
-      return
-    }
+    if (this.dead) return
 
     if (this.lion.body.x < (this.world.width-1600)) {
       this.game.physics.arcade.overlap(this.recicleFireCirclesWall, this.fireCollisionGroup, this.recicleFireCircle, null, this)
     }
 
-    this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerDead, null, this)
-    this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerDead, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerIsDead, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerIsDead, null, this)
     this.game.physics.arcade.collide(this.endLevel, this.lion)
     this.game.physics.arcade.collide(this.floor, this.lion)
 
     this.lion.body.gravity.y = 700
 
+    this.inputs()
+  }
+
+  inputs () {
     let isJumping = !this.lion.body.touching.down
 
     this.game.camera.x = this.lion.x-100
@@ -433,10 +281,6 @@ export default class extends Phaser.State {
       return
     }
 
-    this.inputs()
-  }
-
-  inputs () {
     if (this.cursors.right.isDown) {
       this.clown.isRunning = true
 

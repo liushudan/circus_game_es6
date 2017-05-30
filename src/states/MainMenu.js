@@ -5,8 +5,6 @@ export default class extends Phaser.State {
   }
 
   preload () {
-    
-
     game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml')
   }
 
@@ -23,6 +21,19 @@ export default class extends Phaser.State {
     this.startText.inputEnabled = true
     this.startText.input.enableDrag()
     //this.startText = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 120, 'Press  ENTER  to\n start playing', textstyle)
+
+    this.game.physics.startSystem(Phaser.Physics.ARCADE)
+
+    this.clown = this.game.add.sprite(100, 680, 'clown')
+    this.clown.scale.x = 3
+    this.clown.scale.y = 3
+
+    this.game.physics.enable(this.clown, Phaser.Physics.ARCADE)
+    this.clown.body.setSize(0, 0, 0, 0)
+
+    this.clown.body.velocity.x = 100
+    this.clown.animations.add('run', Phaser.Animation.generateFrameNames('clown', 0, 2, '', 4), 10 /*fps */, true)
+    this.clown.animations.play('run', 8, true)
 
     this.enterPressed = false
   }
