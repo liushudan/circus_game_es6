@@ -200,7 +200,7 @@ export default class extends Phaser.State {
     }, 1)
 
     setTimeout(function() {
-        that.game.state.start('Game')
+        that.game.state.start('GameOver')
         that.failureSound.stop()
     }, 3100)
 
