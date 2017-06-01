@@ -9,9 +9,10 @@ export default class extends Phaser.State {
     this.game.load.image('heart', './assets/images/heart.png')
     this.game.load.image('coin', './assets/images/coin.png')
 
-    this.load.audio('level_1', ['assets/audio/level1-4.mp3'])
-    this.load.audio('failure', ['assets/audio/failure.mp3'])
-    this.game.load.audio('coin', ['assets/audio/coin.mp3']);
+    this.game.load.audio('level_1', ['assets/audio/level1-4.mp3'])
+    this.game.load.audio('failure', ['assets/audio/failure.mp3'])
+    this.game.load.audio('coin', ['assets/audio/coin.mp3'])
+    this.game.load.audio('jump',['/assets/audio/jump.mp3'])
   }
 
   createMeters () {
@@ -283,6 +284,8 @@ export default class extends Phaser.State {
 
     if (this.cursors.up.isDown && !isJumping) {
       this.lion.body.velocity.y = -480
+      this.jumpSound = this.game.add.audio('jump')
+      this.jumpSound.play()
     }
 
     if(isJumping) {

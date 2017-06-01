@@ -6,9 +6,14 @@ export default class extends Phaser.State {
 
   preload () {
     game.load.bitmapFont('carrier_command', 'assets/fonts/bitmapFonts/carrier_command.png', 'assets/fonts/bitmapFonts/carrier_command.xml')
+
+    this.game.load.audio('intro',['/assets/audio/intro.mp3'])
   }
 
   create () {
+    this.introSound = this.game.add.audio('intro')
+    this.introSound.play()
+
     let starsmenu = this.game.add.sprite(130, 100, 'starsmenu')
     starsmenu.scale.x = 5
     starsmenu.scale.y = 5
@@ -41,6 +46,8 @@ export default class extends Phaser.State {
   update () {
     if(!this.enterPressed && this.game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
       this.enterPressed = true
+
+      this.introSound.stop()
 
       this.blinkedTimes = -1
       this.timerBlinker = setInterval(function(_this) {
