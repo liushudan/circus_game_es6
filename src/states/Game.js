@@ -7,9 +7,11 @@ export default class extends Phaser.State {
   preload () {
     this.game.load.image('background', './assets/images/stage01.png')
     this.game.load.image('heart', './assets/images/heart.png')
+    this.game.load.image('coin', './assets/images/coin.png')
 
     this.load.audio('level_1', ['assets/audio/level1-4.mp3'])
     this.load.audio('failure', ['assets/audio/failure.mp3'])
+    this.game.load.audio('coin', ['assets/audio/coin.mp3']);
   }
 
   createMeters () {
@@ -148,6 +150,11 @@ export default class extends Phaser.State {
 
     this.LIVES = 3
 
+    this.score = 0
+    this.scoreText = this.game.add.text(16, 100, 'SCORE: 0', { fontSize: '20px', fill: '#FFF' })
+    this.scoreText.fixedToCamera = true
+
+    this.putCoinsOnLevel()
     this.createMeters()
     this.createFireCirclesLeft()
     this.createPlayer()
@@ -253,6 +260,7 @@ export default class extends Phaser.State {
 
     this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerIsDead, null, this)
     this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerIsDead, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.coins, this.takeCoin, null, this)
     this.game.physics.arcade.collide(this.endLevel, this.lion)
     this.game.physics.arcade.collide(this.floor, this.lion)
 
@@ -298,6 +306,38 @@ export default class extends Phaser.State {
       this.lion.animations.stop(0)
       this.lion.animations.play('idleLion')
     }
+  }
+
+  putCoinsOnLevel() {
+
+    this.coins = this.add.group()
+    let w = this.world.bounds.width-800
+
+    for (let i = 800; i < w; i+=1000) {
+      let coin = this.add.sprite(i, 620, 'coin','firepot0000')
+      this.physics.enable(coin, Phaser.Physics.ARCADE)
+      coin.body.setSize(12, 16, 6, 0)
+
+      coin.body.x = i
+      coin.body.y = 600
+      coin.body.immovable = true
+      coin.scale.x = 3
+      coin.scale.y = 3
+
+      this.coins.add(coin)
+    }
+  }
+
+  takeCoin(player,coin) {
+    //Reproduir coin
+    coin.body.enable = false
+    game.add.tween(coin.scale).to({x: 0}, 150).start()
+    game.add.tween(coin).to({y: 50}, 150).start()
+    this.coinSound = game.add.audio('coin')
+    this.coinSound.play()
+
+    this.score += 5
+    this.scoreText.text = 'SCORE: ' + this.score
   }
 
   render () {
