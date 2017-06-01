@@ -218,6 +218,12 @@ export default class extends Phaser.State {
     this.glives.removeChildAt(this.LIVES)
   }
 
+  triggerWin () {
+      setTimeout(function(){
+          this.game.state.start('Game2')
+      },10, this)
+  }
+
   tiggerLives() {
     this.dead = false
 
@@ -262,6 +268,7 @@ export default class extends Phaser.State {
     this.game.physics.arcade.overlap(this.lion, this.fireCollisionGroup, this.triggerIsDead, null, this)
     this.game.physics.arcade.overlap(this.lion, this.obstacles, this.triggerIsDead, null, this)
     this.game.physics.arcade.overlap(this.lion, this.coins, this.takeCoin, null, this)
+    this.game.physics.arcade.overlap(this.lion, this.endLevel, this.triggerWin, null, this)
     this.game.physics.arcade.collide(this.endLevel, this.lion)
     this.game.physics.arcade.collide(this.floor, this.lion)
 
@@ -316,7 +323,7 @@ export default class extends Phaser.State {
     this.coins = this.add.group()
     let w = this.world.bounds.width-800
 
-    for (let i = 800; i < w; i+=1000) {
+    for (let i = 800; i < w; i+=1200) {
       let coin = this.add.sprite(i, 620, 'coin','firepot0000')
       this.physics.enable(coin, Phaser.Physics.ARCADE)
       coin.body.setSize(12, 16, 6, 0)
@@ -339,26 +346,26 @@ export default class extends Phaser.State {
     this.coinSound = game.add.audio('coin')
     this.coinSound.play()
 
-    this.score += 5
+    this.score += 10
     this.scoreText.text = 'SCORE: ' + this.score
   }
 
   render () {
     if (__DEV__) {
-      this.game.debug.bodyInfo(this.lion, 32, 80)
-
-      this.game.debug.body(this.lion)
-      this.game.debug.body(this.clown)
-      this.game.debug.body(this.recicleFireCirclesWall)
-
-      this.game.debug.body(this.floor)
-      this.obstacles.forEach(function (e) {
-        this.game.debug.body(e)
-      }, this)
-
-      this.fireCollisionGroup.forEach(function (e) {
-        this.game.debug.body(e)
-      }, this)
+      // this.game.debug.bodyInfo(this.lion, 32, 80)
+      //
+      // this.game.debug.body(this.lion)
+      // this.game.debug.body(this.clown)
+      // this.game.debug.body(this.recicleFireCirclesWall)
+      //
+      // this.game.debug.body(this.floor)
+      // this.obstacles.forEach(function (e) {
+      //   this.game.debug.body(e)
+      // }, this)
+      //
+      // this.fireCollisionGroup.forEach(function (e) {
+      //   this.game.debug.body(e)
+      // }, this)
     }
   }
 }

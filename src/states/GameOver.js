@@ -4,7 +4,7 @@ export default class extends Phaser.State {
   }
 
   create() {
-    this.startText = game.add.bitmapText(this.game.width / 2 - 310, this.game.height / 2 - 100, 'carrier_command','Game Over \n\n ENTER to restart',34)
+    this.startText = game.add.bitmapText(this.game.width / 2 - 310, this.game.height / 2 , 'carrier_command','Game Over \n\n ENTER to restart',34)
     this.startText.inputEnabled = true
     this.startText.input.enableDrag()
 

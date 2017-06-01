@@ -159,7 +159,63 @@ export default class extends Phaser.State {
           'trimmed': true,
           'spriteSourceSize': {'x':0,'y':0,'w':37,'h':22},
           'sourceSize': {'w':37,'h':18}
-        }
+        },
+        {
+          'filename': 'walkBalance0',
+    	    'frame': {'x':164,'y':5,'w':16,'h':24},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
+    	    'sourceSize': {'w':16,'h':24}
+  	    },
+  	    {
+          'filename': 'walkBalance1',
+    	    'frame': {'x':185,'y':5,'w':15,'h':24},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':15,'h':24},
+    	    'sourceSize': {'w':15,'h':24}
+  	    },
+  	    {
+          'filename': 'walkBalance2',
+    	    'frame': {'x':205,'y':5,'w':16,'h':24},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
+    	    'sourceSize': {'w':16,'h':24}
+  	    },
+  	    {
+          'filename': 'jumpBalance',
+    	    'frame': {'x':226, 'y':7,'w':16,'h':22},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':22},
+    	    'sourceSize': {'w':16,'h':22}
+  	    },
+  	    {
+          'filename': 'monkey0',
+    	    'frame': {'x':78, 'y':106,'w':16,'h':16},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':16},
+    	    'sourceSize': {'w':16,'h':16}
+  	    },
+  	    {
+          'filename': 'monkey1',
+    	    'frame': {'x':98, 'y':106,'w':16,'h':16},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':16,'h':16},
+    	    'sourceSize': {'w':16,'h':16}
+  	    },
+  	    {
+          'filename': 'monkey2',
+    	    'frame': {'x':118, 'y':106,'w':17,'h':16},
+    	    'rotated': false,
+    	    'trimmed': true,
+    	    'spriteSourceSize': {'x':0,'y':0,'w':17,'h':16},
+    	    'sourceSize': {'w':17,'h':16}
+  	    }
     ]}
 
     this.game.load.atlas('clown', './assets/images/circus-charlie-sheet.gif', null, botData)
