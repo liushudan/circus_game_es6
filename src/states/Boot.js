@@ -62,7 +62,6 @@ export default class extends Phaser.State {
           'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
           'sourceSize': {'w':15,'h':24}
         },
-
         {
           'filename': 'clownburn0000',
           'frame': {'x':164,'y':32,'w':15,'h':24},
@@ -71,7 +70,6 @@ export default class extends Phaser.State {
           'spriteSourceSize': {'x':0,'y':0,'w':16,'h':24},
           'sourceSize': {'w':16,'h':24}
         },
-
         {
           'filename': 'lion0000',
           'frame': {'x':234,'y':87,'w':33,'h':16},

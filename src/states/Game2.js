@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import { centerGameObjects } from '../utils'
 
 export default class extends Phaser.State {
   init () {}
@@ -14,7 +13,7 @@ export default class extends Phaser.State {
   }
 
   createMeters () {
-      var graphics = this.game.add.graphics(0, 0);
+      var graphics = this.game.add.graphics(0, 0)
       var x
 
       for(var i=10;i>=0;i--) {
@@ -37,15 +36,17 @@ export default class extends Phaser.State {
       this.player = this.add.sprite(85, 800, 'clown','walkBalance0')
       this.physics.enable(this.player, Phaser.Physics.ARCADE)
 
+      //this.player.body.setSize(15, 24, 0, 0)
+      this.player.body.setSize(15, 24, 0, 0)
+
       this.player.scale.x = 3
       this.player.scale.y = 3
 
-      this.physics.enable(this.player, Phaser.Physics.ARCADE,true)
-
-      this.player.body.setSize(35, 69, 0, 0)
+      this.game.physics.enable(this.player, Phaser.Physics.ARCADE,true)
 
       this.player.animations.add('walkBalance', Phaser.Animation.generateFrameNames('walkBalance', 0, 2, '', 0), 3 /*fps */, true)
 
+      this.player.isRunning = false
       this.player.body.collideWorldBounds = true
   }
 
@@ -56,62 +57,72 @@ export default class extends Phaser.State {
 
     this.cursors = this.game.input.keyboard.createCursorKeys()
 
-    this.world.setBounds(0,0,1024*8, 550)
+    this.world.setBounds(0, 0 ,1024*8, 415)
     this.background = this.game.add.tileSprite(0, 200, 1024*8, 552, 'background')
 
     this.createMeters()
     this.createPlayer()
+
+    this.endStage = this.game.add.sprite(1024*8-300, 620, 'clown','endLevel1')
+    this.physics.enable(this.endStage, Phaser.Physics.ARCADE)
+
+    this.endStage.scale.x = 3
+    this.endStage.scale.y = 3
+
+    this.endStage.body.immovable = true
+    this.endStage.body.collideWorldBounds = true
   }
 
   update () {
+      this.game.physics.arcade.overlap(this.endStage, this.player)
 
       this.player.body.gravity.y = 800
 
-      var isJumping=!this.player.body.touching.down
-      this.game.camera.x=this.player.x-120
-      if(isJumping){
-          this.player.frameName='jumpBalance'
-      }
+      let isJumping = this.player.body.touching.down
 
-      if (this.cursors.up.isDown&& !isJumping){
-          this.player.body.velocity.y=-480;
-      }
-
+      this.game.camera.x = this.player.x-120
 
       if(isJumping){
-          // Mantengo la velocidad del fondo
-
-          return;
+          this.player.frameName = 'jumpBalance'
       }
 
-      if (this.cursors.right.isDown){
+      if (this.cursors.up.isDown && !isJumping){
+          this.player.body.velocity.y = -480
+          this.jumpSound = this.game.add.audio('jump')
+          this.jumpSound.play()
+      }
 
-          this.player.body.velocity.x=150;
+      if(isJumping){
+          return
+      }
 
-          this.player.animations.play('walkBalance', 10, true);
-      }else if (this.cursors.left.isDown){
+      if (this.cursors.right.isDown) {
+          this.player.isRunning = true
 
-          this.player.body.velocity.x=-130;
-          this.player.animations.play('walkBalance', 5, true);
+          this.player.body.velocity.x = 150
+          this.player.animations.play('walkBalance', 10, true)
+      }else if (this.cursors.left.isDown) {
+          this.player.isRunning = true
+
+          this.player.body.velocity.x = -130
+          this.player.animations.play('walkBalance', 5, true)
       }else{
-          this.player.body.velocity.x=0;
+          this.player.body.velocity.x = 0
 
-          this.player.animations.stop();
-          this.player.frameName='walkBalance2';
-          //this.player.animations.play('walkBalance',8,true);
+          this.player.isRunning = false
+          this.player.animations.stop()
+          this.player.frameName = 'walkBalance2'
       }
-
-
   }
 
   render (){
       if(__DEV__){
-          // this.game.debug.bodyInfo(this.player, 32, 320);
-          //
-          // this.game.debug.body(this.player);
+          this.game.debug.bodyInfo(this.player, 32, 80)
+
+          this.game.debug.body(this.player)
           // this.monkeys.forEach(function (e) {
-          //     this.game.debug.body(e);
-          // }, this);
+          //     this.game.debug.body(e)
+          // }, this)
       }
   }
 }
