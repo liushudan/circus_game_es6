@@ -54,7 +54,7 @@ export default class extends Phaser.State {
         _this.blinkedTimes++
         if(_this.blinkedTimes > 10) {
           clearInterval(_this.timerBlinker)
-          _this.game.state.start('Game2')
+          _this.game.state.start('Game')
         }
         _this.startText.visible = !_this.startText.visible
       }, 30, this)

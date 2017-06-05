@@ -234,14 +234,14 @@ export default class extends Phaser.State {
 
   render (){
       if(__DEV__){
-          this.game.debug.bodyInfo(this.player, 32, 80)
-
-          this.game.debug.body(this.player)
-
-          //this.game.debug.body(this.monkeys)
-          this.monkeys.forEach(function (e) {
-              this.game.debug.body(e)
-          }, this)
+          // this.game.debug.bodyInfo(this.player, 32, 80)
+          //
+          // this.game.debug.body(this.player)
+          //
+          // //this.game.debug.body(this.monkeys)
+          // this.monkeys.forEach(function (e) {
+          //     this.game.debug.body(e)
+          // }, this)
       }
   }
 }
